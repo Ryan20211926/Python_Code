@@ -1,0 +1,18 @@
+# coding:utf-8
+# @Time    : 2024/12/2 22:23
+# @Author  : Ryan
+# @FileName: 获取项目的跟目录.py
+import os
+# 获得根路径
+def getRootPath(project):
+    # 获取文件目录
+    curPath = os.path.abspath(os.path.dirname(__file__))
+    # 获取项目根路径，内容为当前项目的名字
+    rootPath = curPath[:curPath.find(project) + len(project)]
+    print(rootPath)
+    return rootPath
+if __name__ == '__main__':
+    getRootPath("RyanProject")
+
+
+
