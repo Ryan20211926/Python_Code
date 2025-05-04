@@ -1,7 +1,10 @@
 # coding:utf-8
-# @Time    : 2024/12/2 22:23
+# @Time    : 2025/5/4 17:31
 # @Author  : Ryan
-# @FileName: 获取项目的跟目录.py
+# @FileName: 5. 获取项目根目录.py
+"""
+"""
+
 import os
 # 获得根路径
 def getRootPath(project):
@@ -11,8 +14,15 @@ def getRootPath(project):
     rootPath = curPath[:curPath.find(project) + len(project)]
     print(rootPath)
     return rootPath
+def get_desktop_dir():
+    """
+    @Description: 获取用户桌面路径
+    """
+    desktop_dir =  os.path.join(os.path.expanduser('~'),'Desktop')
+    print(desktop_dir)
+    return desktop_dir
+if __name__ == '__main__':
+    get_desktop_dir()
+
 if __name__ == '__main__':
     getRootPath("RyanProject")
-
-
-
