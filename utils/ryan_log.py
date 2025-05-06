@@ -7,22 +7,23 @@ from loguru import logger
 from datetime import datetime
 import os
 
-def getRootPath(project):
-    # 获取文件目录
-    curPath = os.path.abspath(os.path.dirname(__file__))
-    # 获取项目根路径，内容为当前项目的名字
-    rootPath = curPath[:curPath.find(project) + len(project)]
-    logger.info(f"项目的跟目录{rootPath}")
-    return rootPath
 
 class ApiAutoLog():
     '''
     利用loguru封装接口自动化项目日志记录器
     '''
+    def getRootPath(project):
+        # 获取文件目录
+        curPath = os.path.abspath(os.path.dirname(__file__))
+        # 获取项目根路径，内容为当前项目的名字
+        rootPath = curPath[:curPath.find(project) + len(project)]
+        logger.info(f"项目的跟目录{rootPath}")
+        return rootPath
+
     def __new__(cls, *args, **kwargs):
         log_name = datetime.now().strftime("%Y-%m-%d")    # 以时间命名日志文件，格式为"年-月-日"
         # base_path = os.path.dirname(os.path.dirname(__file__))
-        base_path = getRootPath("Python_Code")
+        base_path = ApiAutoLog.getRootPath("Python_Code")
         file_path = f"{base_path}\logs\{log_name}.log"
         sink =os.path.join(base_path,file_path)
         # print(sink)
@@ -44,3 +45,4 @@ if __name__ == '__main__':
     log.info("这是一条info日志信息")
     log.warning("这是一条warning日志信息")
     log.critical("这是一条critical日志信息")
+
