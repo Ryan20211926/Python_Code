@@ -93,6 +93,41 @@ def get_list_to_str(list_to_str):
     loger.info(f"{list_to_str}转换为字符串{result}")
     return result
 
+def extract_field_from_dicts(dict_list, field_name, default=None):
+    """
+    从字典列表中提取指定字段的值，并返回一个列表。
+    :param dict_list: 包含字典的列表
+    :param field_name: 要提取的字段名
+    :param default: 如果字段不存在时的默认值（可选）
+    :return: 包含提取值的列表
+    """
+    result = [d.get(field_name, default) for d in dict_list]
+    loger.info(f"列表字典值：{dict_list}")
+    loger.info(f"返回的字典值：{result}")
+    return result
+
+def extract_nested_field_from_dicts(dict_list, field_path, default=None):
+    """
+    从字典列表中提取嵌套字段的值，并返回一个列表。
+    :param dict_list: 包含字典的列表
+    :param field_path: 嵌套字段的路径，以点分隔（例如 "details.age"）
+    :param default: 如果字段不存在时的默认值（可选）
+    :return: 包含提取值的列表
+    """
+    def get_nested_value(d, path):
+        """递归获取嵌套字段的值"""
+        fields = path.split(".")
+        for field in fields:
+            if isinstance(d, dict) and field in d:
+                loger.info(f"d:{d}")
+                d = d[field]
+                loger.info(f"{d}")
+            else:
+                return default
+        return d
+    result = [get_nested_value(d, field_path) for d in dict_list]
+    loger.info(f'结果为:{result}')
+    return result
 
 if __name__ == '__main__':
     loger.info(f"")
@@ -105,4 +140,22 @@ if __name__ == '__main__':
     get_specified_length_hanzi(20)
     input_list = [1, 2, 3, "a", "b", 4]
     get_list_to_str(input_list)
+    dict_list = [
+        {"name": "Alice", "age": 25},
+        {"name": "Bob", "age": 30},
+        {"name": "Charlie", "age": 35}
+    ]
+
+    # 提取字段 "name"
+    extracted_names = extract_field_from_dicts(dict_list, "name")
+    extracted_names = extract_field_from_dicts(dict_list, "city",default="city")
+    dict_list = [
+        {"name": "Alice", "details": {"age": 25, "city": "New York"}},
+        {"name": "Bob", "details": {"age": 30, "city": "Los Angeles"}},
+        {"name": "Charlie", "details": {"age": 35, "city": "Chicago"}}
+    ]
+
+    # 提取嵌套字段 "details.age"
+    extracted_ages = extract_nested_field_from_dicts(dict_list, "details.age")
+    extracted_ages = extract_nested_field_from_dicts(dict_list, "name")
 
