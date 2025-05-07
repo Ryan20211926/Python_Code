@@ -1,7 +1,15 @@
 # coding:utf-8
-# @Time    : 2024/12/2 22:25
+# @Time    : 2025/5/4 17:36
 # @Author  : Ryan
-# @FileName: 获得文件当前所在路径.py
+# @FileName: 6. 获取文件路径.py
+"""
+"""
+
+import os
+# 获取文件上上级路径
+base_path = os.path.dirname(os.path.dirname(__file__))
+print(base_path)
+
 import sys
 import os
 # 获得路径，当前文件所在路径

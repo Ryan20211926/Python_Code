@@ -21,7 +21,6 @@ def generate_six_digit_random_number():
 
 
 
-
 def generate_captcha(length=6):
     """
     生成指定长度的验证码。
@@ -86,6 +85,13 @@ def get_specified_length_hanzi(length):
 
 
 
+def get_list_to_str(list_to_str):
+    # 将所有元素转换为字符串
+    string_data = [str(item) for item in list_to_str]
+    # 使用 "".join() 拼接成一个字符串
+    result = "".join(string_data)
+    loger.info(f"{list_to_str}转换为字符串{result}")
+    return result
 
 
 if __name__ == '__main__':
@@ -97,4 +103,6 @@ if __name__ == '__main__':
     select_random_element(input_list)
     select_multiple_elements(input_list,3)
     get_specified_length_hanzi(20)
+    input_list = [1, 2, 3, "a", "b", 4]
+    get_list_to_str(input_list)
 

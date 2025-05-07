@@ -25,3 +25,15 @@ print(text)  # 输出：
 # Hello
 # World
 # Python
+
+
+# 假设有一个包含数字和字符串的列表
+data = [1, 2, 3, "a", "b", 4]
+
+# 将所有元素转换为字符串
+string_data = [str(item) for item in data]
+
+# 使用 "".join() 拼接成一个字符串
+result = "".join(string_data)
+
+print(result)  # 输出：123ab4
